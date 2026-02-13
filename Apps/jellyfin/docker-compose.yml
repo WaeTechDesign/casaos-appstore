@@ -2,27 +2,42 @@ name: jellyfin-hackwae
 
 services:
   app:
-    image: linuxserver/jellyfin:latest
+    image: linuxserver/jellyfin:10.11.6
     restart: unless-stopped
+
     ports:
-      - "8096:8096"
+      - target: 8096
+        published: 8096
+        protocol: tcp
+
     volumes:
-      - /DATA/AppData/jellyfin/config:/config
-      - /DATA/Media:/data
+      - type: bind
+        source: /DATA/AppData/jellyfin/config
+        target: /config
+      - type: bind
+        source: /DATA/Media
+        target: /data
 
 x-casaos:
   architectures:
     - amd64
+
   main: app
+
   category: Media
+
   port_map: "8096"
-  webui: http://[HOST]:[PORT]
+
   scheme: http
+
+  index: /
+
+  webui: http://[HOST]:[PORT]
 
   title:
     en_us: Jellyfin HackWae
-  developer: HackWae
-  tagline:
-    en_us: Custom Jellyfin build
+
   description:
     en_us: Jellyfin for HackWae homelab
+
+  developer: HackWae
