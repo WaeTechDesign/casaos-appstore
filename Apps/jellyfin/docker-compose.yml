@@ -2,8 +2,27 @@ name: jellyfin-hackwae
 
 services:
   app:
-    image: linuxserver/jellyfin:10.11.6
+    image: linuxserver/jellyfin:latest
     restart: unless-stopped
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+      TZ: Asia/Makassar
+      JELLYFIN_PublishedServerUrl: ''
+    x-casaos:
+      envs:
+        - container: PUID
+          description:
+            en_us: Run 'id [USER]' for the owner of the host volume directories to get the UID to use here.
+        - container: PGID
+          description:
+            en_us: Run 'id [USER]' for the owner of the host volume directories to get the GID to use here.
+        - container: TZ
+          description:
+            en_us: specify a timezone to use, see this list.
+        - container: JELLYFIN_PublishedServerUrl
+          description:
+            en_us: Set the autodiscovery response domain or IP address, include http(s)://. [OPTIONAL]
 
     ports:
       - target: 8096
@@ -16,7 +35,7 @@ services:
         target: /config
       - type: bind
         source: /DATA/Media
-        target: /data
+        target: /data/movies
 
 x-casaos:
   architectures:
