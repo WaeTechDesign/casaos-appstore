@@ -15,6 +15,7 @@ x-casaos:
     - amd64
   main: app
   category: Media
+  icon: icon.png
   title:
     en_us: Jellyfin HackWae
   developer: HackWae
