@@ -1,9 +1,9 @@
 {
   "id": "jellyfin-hackwae",
   "name": "Jellyfin hackwae",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "app",
-  "category": "Hackwae.Store",
+  "category": "Hackwae Store",
   "icon": "icon.png",
   "description": "Jellyfin media server by HackWae",
   "developer": "HackWae",
