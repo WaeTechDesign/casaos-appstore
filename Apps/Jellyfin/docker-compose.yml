@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin-homelab
+    network_mode: bridge
+
+    ports:
+      - "8096:8096"
+
+    volumes:
+      - /DATA/AppData/jellyfin/config:/config
+      - /DATA/AppData/jellyfin/cache:/cache
+      - /DATA/Media:/media
+
+    restart: unless-stopped
