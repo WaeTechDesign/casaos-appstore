@@ -15,7 +15,9 @@ x-casaos:
     - amd64
   main: app
   category: Media
-  icon: https://github.com/WaeTechDesign/casaos-appstore/blob/main/Apps/jellyfin/icon.png
+  port_map: "8096"
+  webui: http://[HOST]:[PORT]
+
   title:
     en_us: Jellyfin HackWae
   developer: HackWae
