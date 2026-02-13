@@ -2,27 +2,14 @@ name: jellyfin-hackwae
 
 services:
   app:
-    image: linuxserver/jellyfin:latest
+    image: linuxserver/jellyfin:10.11.6
     restart: unless-stopped
+
     environment:
       PUID: $PUID
       PGID: $PGID
       TZ: Asia/Makassar
       JELLYFIN_PublishedServerUrl: ''
-    x-casaos:
-      envs:
-        - container: PUID
-          description:
-            en_us: Run 'id [USER]' for the owner of the host volume directories to get the UID to use here.
-        - container: PGID
-          description:
-            en_us: Run 'id [USER]' for the owner of the host volume directories to get the GID to use here.
-        - container: TZ
-          description:
-            en_us: specify a timezone to use, see this list.
-        - container: JELLYFIN_PublishedServerUrl
-          description:
-            en_us: Set the autodiscovery response domain or IP address, include http(s)://. [OPTIONAL]
 
     ports:
       - target: 8096
@@ -37,6 +24,7 @@ services:
         source: /DATA/Media
         target: /data/movies
 
+
 x-casaos:
   architectures:
     - amd64
@@ -47,11 +35,23 @@ x-casaos:
   scheme: http
   index: /
   webui: http://[HOST]:[PORT]
-  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/jellyfin.png
-  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/jellyfin.png
+  envs:
+    - container: PUID
+      description:
+        en_us: UID for volume owner
+    - container: PGID
+      description:
+        en_us: GID for volume owner
+    - container: TZ
+      description:
+        en_us: Container timezone
+    - container: JELLYFIN_PublishedServerUrl
+      description:
+        en_us: Optional published URL
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/jellyfin.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/jellyfin.png
   title:
     en_us: Jellyfin HackWae
-  description: 'Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps. Jellyfin is descended from Emby''s 3.5.2 release and ported to the .NET Core framework to enable full cross-platform support. There are no strings attached, no premium licenses or features, and no hidden agendas: just a team who want to build something better and work together to achieve it.'
-  tagline:
+  description:
     en_us: Jellyfin for HackWae homelab
   developer: HackWae
