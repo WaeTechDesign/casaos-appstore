@@ -17,6 +17,7 @@ x-casaos:
   category: Media
   port_map: "8096"
   webui: http://[HOST]:[PORT]
+  scheme: http
 
   title:
     en_us: Jellyfin HackWae
