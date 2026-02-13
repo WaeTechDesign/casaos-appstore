@@ -1,9 +1,10 @@
 {
   "name": "HackWae Store",
+  "description": "Custom Apps by HackWae",
   "apps": [
     {
-      "id": "jellyfin-homelab",
-      "path": "Apps/Jellyfin"
+      "id": "jellyfin-hackwae",
+      "path": "Apps/jellyfin"
     }
   ]
 }
