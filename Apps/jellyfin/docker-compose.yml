@@ -14,7 +14,7 @@ x-casaos:
   architectures:
     - amd64
   main: app
-  category: HackWae
+  category: Media
   title:
     en_us: Jellyfin HackWae
   developer: HackWae
