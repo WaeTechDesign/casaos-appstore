@@ -1,11 +1,11 @@
 {
-  "id": "jellyfin-homelab",
-  "name": "Jellyfin homelab",
-  "version": "1.0.0",
+  "id": "jellyfin-hackwae",
+  "name": "Jellyfin hackwae",
+  "version": "1.0.1",
   "type": "app",
-  "category": "Media",
+  "category": "Hackwae.Store",
   "icon": "icon.png",
-  "description": "Jellyfin media server",
+  "description": "Jellyfin media server by HackWae",
   "developer": "HackWae",
   "website": "https://jellyfin.org"
 }
