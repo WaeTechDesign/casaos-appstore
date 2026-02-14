@@ -4,7 +4,24 @@
   "apps": [
     {
       "id": "jellyfin-hackwae",
-      "path": "Apps/jellyfin"
+      "title": "Jellyfin HackWae",
+      "description": "Self-hosted Media Server",
+      "path": "Apps/jellyfin",
+      "category": "Media"
+    },
+    {
+      "id": "moodle-hackwae",
+      "title": "Moodle HackWae",
+      "description": "Self-hosted Moodle LMS (Full Performance Mode)",
+      "path": "Apps/moodle",
+      "category": "Notes"
+    },
+    {
+      "id": "moodle-hackwae-lite",
+      "title": "Moodle HackWae Lite",
+      "description": "Self-hosted Moodle LMS (Low Resource Mode for Homelab)",
+      "path": "Apps/moodle-lite",
+      "category": "Notes"
     }
   ]
 }
