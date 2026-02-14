@@ -1,0 +1,51 @@
+name: moodle-hackwae
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 0.5
+    command: --innodb-buffer-pool-size=256M
+    environment:
+      MYSQL_ROOT_PASSWORD: m00dle
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: m00dle
+    volumes:
+      - /DATA/AppData/moodle-db:/var/lib/mysql
+    networks:
+      - moodle
+
+  app:
+    image: prasta/moodle:latest
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 1.0
+    depends_on:
+      - db
+    ports:
+      - "8484:80"
+    volumes:
+      - /DATA/AppData/moodledata:/var/www/moodledata
+    networks:
+      - moodle
+
+networks:
+  moodle:
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: app
+  category: Notes
+  port_map: "8484"
+  scheme: http
+  index: /
+  webui: http://[HOST]:[PORT]
+  title:
+    en_us: Moodle HackWae
+  description:
+    en_us: Self-hosted Moodle LMS (Low Limited Mode)
+  developer: HackWae
