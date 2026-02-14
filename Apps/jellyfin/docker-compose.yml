@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
 
     environment:
-      PUID: $PUID
-      PGID: $PGID
+      PUID: 1000
+      PGID: 1000
       TZ: Asia/Makassar
       JELLYFIN_PublishedServerUrl: ''
 
