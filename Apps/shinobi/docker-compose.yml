@@ -5,12 +5,16 @@ services:
     image: mariadb:10.6
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: shinobi_root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: shinobi
       MYSQL_USER: shinobi
-      MYSQL_PASSWORD: shinobi_pass
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - /DATA/AppData/shinobi-db:/var/lib/mysql
+      - type: bind
+        source: /DATA/AppData/shinobi-db
+        target: /var/lib/mysql
+        bind:
+          create_host_path: true
     networks:
       - shinobi
 
@@ -26,11 +30,17 @@ services:
     environment:
       DB_HOST: db
       DB_USER: shinobi
-      DB_PASSWORD: shinobi_pass
-      DB_NAME: shinobi
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_DATABASE: shinobi
+      SUPER_EMAIL: ${SUPER_EMAIL}
+      SUPER_PASSWORD: ${SUPER_PASSWORD}
+      SUPER_KEY: ${SUPER_KEY}
     volumes:
-      - /DATA/AppData/shinobi/config:/config
-      - /DATA/AppData/shinobi/videos:/opt/shinobi/videos
+      - type: bind
+        source: /DATA/AppData/shinobi
+        target: /config
+        bind:
+          create_host_path: true
     networks:
       - shinobi
 
@@ -50,8 +60,23 @@ x-casaos:
   icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   title:
-    en_us: Shinobi CCTV HackWae
+    en_us: Shinobi HackWae
   description:
-    en_us: Self-hosted CCTV NVR for IP Cameras
+    en_us: Self-hosted CCTV NVR with auto superuser setup
   developer: HackWae
-  store_app_id: shinobi-hackwae
+  envs:
+    - container: MYSQL_ROOT_PASSWORD
+      description:
+        en_us: MariaDB root password
+    - container: MYSQL_PASSWORD
+      description:
+        en_us: Shinobi database password
+    - container: SUPER_EMAIL
+      description:
+        en_us: Superuser email
+    - container: SUPER_PASSWORD
+      description:
+        en_us: Superuser password
+    - container: SUPER_KEY
+      description:
+        en_us: Superuser key (used for login)
