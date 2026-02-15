@@ -37,7 +37,7 @@ x-casaos:
     - amd64
     - arm64
   main: app
-  category: Notes
+  category: HackWae-Appstore
   port_map: "8484"
   scheme: http
   index: /

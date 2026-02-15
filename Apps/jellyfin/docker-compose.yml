@@ -31,7 +31,7 @@ x-casaos:
     - amd64
     - arm64
   main: app
-  category: Media
+  category: HackWae-Appstore
   port_map: "8096"
   scheme: http
   index: /
