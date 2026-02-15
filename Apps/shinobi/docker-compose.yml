@@ -33,23 +33,21 @@ x-casaos:
   icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   tips:
-    custom: |-
-      https://IP/super
+    en_us: |-
+      🔐 Default Login Information
 
-      username : admin@shinobi.video
-      pass : admin
+      After installation open:
+      http://[HOST]:[PORT]/super
+
+      Email:
+      admin@shinobi.video
+
+      Password:
+      admin
+
+      ⚠️ Please change the password after first login.
   title:
     en_us: Shinobi CCTV HackWae
   description:
     en_us: Self-hosted CCTV NVR System with auto superuser setup
   developer: HackWae
-  envs:
-    - container: ADMIN_EMAIL
-      description:
-        en_us: Superuser email login
-    - container: ADMIN_PASSWORD
-      description:
-        en_us: Superuser password
-    - container: ADMIN_KEY
-      description:
-        en_us: Superuser key (required for login)
