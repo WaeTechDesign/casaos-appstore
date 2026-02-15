@@ -26,6 +26,7 @@ services:
 
 
 x-casaos:
+  store_app_id: jellyfin-hackwae
   architectures:
     - amd64
     - arm64

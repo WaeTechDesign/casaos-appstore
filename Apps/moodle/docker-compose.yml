@@ -32,6 +32,7 @@ networks:
   moodle:
 
 x-casaos:
+  store_app_id: moodle-hackwae
   architectures:
     - amd64
     - arm64

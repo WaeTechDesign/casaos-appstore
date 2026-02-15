@@ -9,10 +9,6 @@
     {
       "id": "moodle-hackwae",
       "path": "Apps/moodle"
-    },
-    {
-      "id": "moodle-hackwae-lite",
-      "path": "Apps/moodle-lite"
     }
   ]
 }
