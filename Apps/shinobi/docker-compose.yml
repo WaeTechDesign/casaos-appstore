@@ -46,6 +46,7 @@ x-casaos:
       admin
 
       ⚠️ Please change the password after first login.
+  version: "1.0.0"
   title:
     en_us: Shinobi CCTV HackWae
   description:

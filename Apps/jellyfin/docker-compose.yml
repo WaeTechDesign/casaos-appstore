@@ -51,6 +51,7 @@ x-casaos:
         en_us: Optional published URL
   icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/jellyfin.png
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/jellyfin.png
+  version: "1.0.0"
   title:
     en_us: Jellyfin HackWae
   description:
