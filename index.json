@@ -9,6 +9,11 @@
     {
       "id": "moodle-hackwae",
       "path": "Apps/moodle"
+    },
+    {
+      "id": "shinobi-hackwae",
+      "path": "Apps/shinobi"
     }
+
   ]
 }

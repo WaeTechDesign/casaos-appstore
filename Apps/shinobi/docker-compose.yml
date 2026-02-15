@@ -1,0 +1,55 @@
+name: shinobi-hackwae
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: shinobi_root
+      MYSQL_DATABASE: shinobi
+      MYSQL_USER: shinobi
+      MYSQL_PASSWORD: shinobi_pass
+    volumes:
+      - /DATA/AppData/shinobi-db:/var/lib/mysql
+    networks:
+      - shinobi
+
+  app:
+    image: shinobisystems/shinobi:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - target: 8080
+        published: 8085
+        protocol: tcp
+    environment:
+      DB_HOST: db
+      DB_USER: shinobi
+      DB_PASSWORD: shinobi_pass
+      DB_NAME: shinobi
+    volumes:
+      - /DATA/AppData/shinobi/config:/config
+      - /DATA/AppData/shinobi/videos:/opt/shinobi/videos
+    networks:
+      - shinobi
+
+networks:
+  shinobi:
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: app
+  category: Security
+  port_map: "8085"
+  scheme: http
+  index: /
+  webui: http://[HOST]:[PORT]
+  title:
+    en_us: Shinobi CCTV HackWae
+  description:
+    en_us: Self-hosted CCTV NVR for IP Cameras
+  developer: HackWae
+  store_app_id: shinobi-hackwae
