@@ -1,51 +1,25 @@
 name: shinobi-hackwae
 
 services:
-  db:
-    image: mariadb:10.6
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: shinobi
-      MYSQL_USER: shinobi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - type: bind
-        source: /DATA/AppData/shinobi-db
-        target: /var/lib/mysql
-        bind:
-          create_host_path: true
-    networks:
-      - shinobi
-
   app:
     image: shinobisystems/shinobi:latest
     restart: unless-stopped
-    depends_on:
-      - db
+
+    environment:
+      - TZ=Asia/Makassar
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - ADMIN_KEY=${ADMIN_KEY}
+
     ports:
       - target: 8080
         published: 8085
         protocol: tcp
-    environment:
-      DB_HOST: db
-      DB_USER: shinobi
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_DATABASE: shinobi
-      SUPER_EMAIL: ${SUPER_EMAIL}
-      SUPER_PASSWORD: ${SUPER_PASSWORD}
-      SUPER_KEY: ${SUPER_KEY}
-    volumes:
-      - type: bind
-        source: /DATA/AppData/shinobi
-        target: /config
-        bind:
-          create_host_path: true
-    networks:
-      - shinobi
 
-networks:
-  shinobi:
+    volumes:
+      - /DATA/AppData/shinobi/config:/config
+      - /DATA/AppData/shinobi/videos:/var/lib/shinobi/videos
+      - /DATA/AppData/shinobi/database:/var/lib/mysql
 
 x-casaos:
   architectures:
@@ -60,23 +34,17 @@ x-casaos:
   icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/shinobi.png
   title:
-    en_us: Shinobi HackWae
+    en_us: Shinobi CCTV HackWae
   description:
-    en_us: Self-hosted CCTV NVR with auto superuser setup
+    en_us: Self-hosted CCTV NVR System with auto superuser setup
   developer: HackWae
   envs:
-    - container: MYSQL_ROOT_PASSWORD
+    - container: ADMIN_EMAIL
       description:
-        en_us: MariaDB root password
-    - container: MYSQL_PASSWORD
-      description:
-        en_us: Shinobi database password
-    - container: SUPER_EMAIL
-      description:
-        en_us: Superuser email
-    - container: SUPER_PASSWORD
+        en_us: Superuser email login
+    - container: ADMIN_PASSWORD
       description:
         en_us: Superuser password
-    - container: SUPER_KEY
+    - container: ADMIN_KEY
       description:
-        en_us: Superuser key (used for login)
+        en_us: Superuser key (required for login)
