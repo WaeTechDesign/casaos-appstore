@@ -24,7 +24,6 @@ services:
         published: 8484
         protocol: tcp
     volumes:
-      - /DATA/AppData/moodle
       - /DATA/AppData/moodledata:/var/www/moodledata
     networks:
       - moodle
@@ -42,6 +41,8 @@ x-casaos:
   scheme: http
   index: /
   webui: http://[HOST]:[PORT]
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/Moodle%20Icon.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/refs/heads/main/Apps/icon/Moodle%20Icon.png
   title:
     en_us: Moodle HackWae
   description:
