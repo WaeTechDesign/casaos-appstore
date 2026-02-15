@@ -7,9 +7,8 @@ services:
 
     environment:
       - TZ=Asia/Makassar
-      - ADMIN_EMAIL=${ADMIN_EMAIL}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - ADMIN_KEY=${ADMIN_KEY}
+      - ADMIN_EMAIL= admin@shinobi.video
+      - ADMIN_PASSWORD= admin
 
     ports:
       - target: 8080
