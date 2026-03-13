@@ -13,7 +13,10 @@
     {
       "id": "shinobi-hackwae",
       "path": "Apps/shinobi"
+    },
+    {
+      "id": "immich-hackwae",
+      "path": "Apps/immich"
     }
-
   ]
 }
