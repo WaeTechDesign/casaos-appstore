@@ -17,6 +17,10 @@
     {
       "id": "immich-hackwae",
       "path": "Apps/immich"
+    },
+    {
+      "id": "web-lab-hackwae",
+      "path": "Apps/web-lab"
     }
   ]
 }

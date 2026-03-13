@@ -1,12 +1,71 @@
-version: "3.9"
+name: web-lab-hackwae
 
 services:
-  nginx:
+  app:
     image: nginx:latest
-    container_name: hackwae-web-lab
-    ports:
-      - "8088:80"
-    volumes:
-      - ./sites:/var/www
-      - ./nginx:/etc/nginx/conf.d
     restart: unless-stopped
+
+    ports:
+      - target: 80
+        published: 8088
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/web-lab/sites
+        target: /var/www
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: /DATA/AppData/web-lab/nginx
+        target: /etc/nginx/conf.d
+        bind:
+          create_host_path: true
+
+x-casaos:
+  store_app_id: web-lab-hackwae
+  architectures:
+    - amd64
+    - arm64
+
+  main: app
+  category: HackWae-Appstore
+  port_map: "8088"
+  scheme: http
+  index: /
+  webui: http://[HOST]:[PORT]
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/nginx.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/nginx.png
+
+  title:
+    en_us: HackWae Web Lab
+
+  description:
+    en_us: |
+      Nginx Web Lab for testing multi-domain websites locally.
+      Supports wildcard routing such as:
+      app1.localhost
+      app2.localhost
+      app3.localhost
+
+  tips:
+    en_us: |-
+      🚀 How to use Web Lab
+
+      Create folder inside:
+      /DATA/AppData/web-lab/sites/
+
+      Example:
+      /DATA/AppData/web-lab/sites/app1
+
+      Then add index.html inside.
+
+      Access the site:
+      http://app1.localhost:8088
+
+      No need to restart container.
+
+  developer: HackWae
+  version: "1.0.0"
