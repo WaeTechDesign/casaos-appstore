@@ -1,0 +1,76 @@
+name: immich-hackwae
+
+services:
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:release
+    restart: unless-stopped
+
+    ports:
+      - target: 2283
+        published: 2283
+        protocol: tcp
+
+    environment:
+      DB_HOSTNAME: database
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: redis
+
+    volumes:
+      - /mnt/data/photos:/usr/src/app/upload
+
+    depends_on:
+      - redis
+      - database
+
+  redis:
+    image: redis:6.2
+    restart: unless-stopped
+
+  database:
+    image: postgres:14
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: immich
+
+    volumes:
+      - /DATA/AppData/immich-db:/var/lib/postgresql/data
+
+x-casaos:
+  store_app_id: immich-hackwae
+  architectures:
+    - amd64
+    - arm64
+
+  main: immich-server
+  category: HackWae-Appstore
+  port_map: "2283"
+  scheme: http
+  index: /
+  webui: http://[HOST]:[PORT]
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/immich.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/immich.png
+
+  title:
+    en_us: Immich HackWae
+
+  description:
+    en_us: Self-hosted photo and video backup solution.
+
+  tips:
+    en_us: |-
+      📷 Photo Storage Path
+
+      All uploaded photos will be stored in:
+
+      /DATA/Media/Photos
+
+      You can modify this path in the docker-compose file.
+
+  developer: HackWae
+  version: "1.0.0"

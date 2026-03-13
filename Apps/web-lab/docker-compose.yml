@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: hackwae-web-lab
+    ports:
+      - "8088:80"
+    volumes:
+      - ./sites:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    restart: unless-stopped
