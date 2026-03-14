@@ -44,28 +44,23 @@ x-casaos:
 
   description:
     en_us: |
-      Nginx Web Lab for testing multi-domain websites locally.
-      Supports wildcard routing such as:
-      app1.localhost
-      app2.localhost
-      app3.localhost
+      Nginx Web Lab for testing multiple websites locally using wildcard domains.
 
   tips:
     en_us: |-
-      🚀 How to use Web Lab
+      🚀 Usage Guide
 
-      Create folder inside:
-      /DATA/AppData/web-lab/sites/
+      Create folder:
 
-      Example:
       /DATA/AppData/web-lab/sites/app1
 
-      Then add index.html inside.
+      Add index.html inside.
 
-      Access the site:
+      Access:
+
       http://app1.localhost:8088
 
-      No need to restart container.
+      Supports unlimited websites without editing nginx config.
 
   developer: HackWae
   version: "1.0.0"
