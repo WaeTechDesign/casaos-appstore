@@ -23,16 +23,16 @@
       "path": "Apps/web-lab"
     },
     {
-    "id": "mssql-server-hackwae",
-    "path": "Apps/mssql-server"
+      "id": "mssql-server-hackwae",
+      "path": "Apps/mssql-server"
     },
     {
-    "id": "mqtt-broker-hackwae",
-    "path": "Apps/mqtt-broker"
+      "id": "mqtt-broker-hackwae",
+      "path": "Apps/mqtt-broker"
     },
     {
-    "id": "mqtt-studio-hackwae",
-    "path": "Apps/mqtt-studio"
+      "id": "mqtt-studio-hackwae",
+      "path": "Apps/mqtt-studio"
     }
   ]
 }
