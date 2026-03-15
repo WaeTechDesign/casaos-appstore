@@ -52,29 +52,28 @@ x-casaos:
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mssql.png
 
   tips:
-    en_us: |-
-      SQL Server connection info
+    before_install:
+      en_us: >
+        ⚠️ SQL Server Requirements
 
-      Host: CasaOS-IP
-      Port: 1433
-      User: sa
+        SQL Server requires a strong password.
 
-      Connect using:
-      - SQL Server Management Studio
-      - Azure Data Studio
-      - DBeaver
-      SQL Server connection info
+        Requirements:
+        - Minimum 8 characters
+        - Uppercase letter
+        - Lowercase letter
+        - Number
+        - Symbol
 
-      Server format for SQL tools:
-      IP,PORT
+        Example password:
+        P@ssw0rd123!
 
-      Example:
-      192.168.1.2,1433
+        Connection to SSMS format:
 
-      Default user:
-      sa
-      Password:
-      the one you set during install
+        IP,PORT
+
+        Example:
+        192.168.1.2,1433
 
   envs:
     - container: MSSQL_SA_PASSWORD
