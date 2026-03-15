@@ -63,6 +63,18 @@ x-casaos:
       - SQL Server Management Studio
       - Azure Data Studio
       - DBeaver
+      SQL Server connection info
+
+      Server format for SQL tools:
+      IP,PORT
+
+      Example:
+      192.168.1.2,1433
+
+      Default user:
+      sa
+      Password:
+      the one you set during install
 
   envs:
     - container: MSSQL_SA_PASSWORD
