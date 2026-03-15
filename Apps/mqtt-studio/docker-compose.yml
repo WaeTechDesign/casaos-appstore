@@ -1,0 +1,93 @@
+name: mqtt-studio-hackwae
+
+services:
+  mqtt:
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+
+    ports:
+      - target: 1883
+        published: 1883
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mqtt-studio/config
+        target: /mosquitto/config
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: /DATA/AppData/mqtt-studio/data
+        target: /mosquitto/data
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: /DATA/AppData/mqtt-studio/log
+        target: /mosquitto/log
+        bind:
+          create_host_path: true
+
+  mqtt-dashboard:
+    image: emqx/mqttx-web
+    restart: unless-stopped
+
+    ports:
+      - target: 80
+        published: 8083
+        protocol: tcp
+
+  nodered:
+    image: nodered/node-red:latest
+    restart: unless-stopped
+
+    ports:
+      - target: 1880
+        published: 1880
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mqtt-studio/node-red
+        target: /data
+        bind:
+          create_host_path: true
+
+x-casaos:
+  store_app_id: mqtt-studio-hackwae
+
+  architectures:
+    - amd64
+    - arm64
+
+  main: mqtt
+  category: IoT
+
+  port_map: "1883"
+
+  scheme: mqtt
+  index: /
+
+  title:
+    en_us: MQTT Studio HackWae
+
+  description:
+    en_us: MQTT broker with dashboard and Node-RED automation tools.
+
+  developer: HackWae
+  version: "1.0.0"
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mqtt.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mqtt.png
+
+  tips:
+    before_install:
+      en_us: >
+        MQTT Broker Port: 1883
+
+        MQTT Dashboard:
+        http://IP:8083
+
+        Node-RED Automation:
+        http://IP:1880

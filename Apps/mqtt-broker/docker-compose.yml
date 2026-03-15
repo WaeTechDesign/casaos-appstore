@@ -1,0 +1,74 @@
+name: mqtt-broker-hackwae
+
+services:
+  mqtt:
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+
+    ports:
+      - target: 1883
+        published: 1883
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mqtt-broker/config
+        target: /mosquitto/config
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: /DATA/AppData/mqtt-broker/data
+        target: /mosquitto/data
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: /DATA/AppData/mqtt-broker/log
+        target: /mosquitto/log
+        bind:
+          create_host_path: true
+
+  dashboard:
+    image: emqx/mqttx-web
+    restart: unless-stopped
+
+    ports:
+      - target: 80
+        published: 8083
+        protocol: tcp
+
+x-casaos:
+  store_app_id: mqtt-broker-hackwae
+
+  architectures:
+    - amd64
+    - arm64
+
+  main: mqtt
+  category: IoT
+
+  port_map: "1883"
+
+  scheme: mqtt
+  index: /
+
+  title:
+    en_us: MQTT Broker HackWae
+
+  description:
+    en_us: Lightweight MQTT broker with web dashboard for monitoring topics and messages.
+
+  developer: HackWae
+  version: "1.0.0"
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mqtt-broker.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mqtt-broker.png
+
+  tips:
+    before_install:
+      en_us: >
+        MQTT Broker Port: 1883
+
+        Web Dashboard:
+        http://IP:8083
