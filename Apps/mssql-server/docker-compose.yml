@@ -7,7 +7,7 @@ services:
 
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      MSSQL_SA_PASSWORD: "P@ssw0rd123!"
       MSSQL_PID: Express
 
     ports:
@@ -32,7 +32,7 @@ x-casaos:
 
   port_map: "1433"
   scheme: tcp
-  index: /
+  index:
 
   title:
     en_us: Microsoft SQL Server
@@ -74,6 +74,30 @@ x-casaos:
 
         Example:
         192.168.1.2,1433
+    
+    after_install:
+      en_us: >
+        ⚠️ SQL Server Requirements
+
+        SQL Server requires a strong password.
+
+        Requirements:
+        - Minimum 8 characters
+        - Uppercase letter
+        - Lowercase letter
+        - Number
+        - Symbol
+
+        Example password:
+        P@ssw0rd123!
+
+        Connection to SSMS format:
+
+        IP,PORT
+
+        Example:
+        192.168.1.2,1433
+
 
   envs:
     - container: MSSQL_SA_PASSWORD
