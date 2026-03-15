@@ -1,0 +1,70 @@
+name: mssql-server-hackwae
+
+services:
+  app:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      MSSQL_PID: Express
+
+    ports:
+      - target: 1433
+        published: 1433
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mssql/data
+        target: /var/opt/mssql
+        bind:
+          create_host_path: true
+
+x-casaos:
+  store_app_id: mssql-server-hackwae
+  architectures:
+    - amd64
+
+  main: app
+  category: HackWae-Appstore
+
+  port_map: "1433"
+  scheme: tcp
+  index: /
+
+  title:
+    en_us: Microsoft SQL Server
+
+  description:
+    en_us: |
+      Microsoft SQL Server container for CasaOS.
+
+      Default login:
+      User: sa
+      Password: set during installation.
+
+  developer: HackWae
+  version: "1.0.0"
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mssql.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/mssql.png
+
+  tips:
+    en_us: |-
+      SQL Server connection info
+
+      Host: CasaOS-IP
+      Port: 1433
+      User: sa
+
+      Connect using:
+      - SQL Server Management Studio
+      - Azure Data Studio
+      - DBeaver
+
+  envs:
+    - container: MSSQL_SA_PASSWORD
+      description:
+        en_us: SA password (must contain uppercase, lowercase, number and symbol)

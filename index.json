@@ -21,6 +21,10 @@
     {
       "id": "web-lab-hackwae",
       "path": "Apps/web-lab"
+    },
+    {
+    "id": "mssql-server-hackwae",
+    "path": "Apps/mssql-server"
     }
   ]
 }
