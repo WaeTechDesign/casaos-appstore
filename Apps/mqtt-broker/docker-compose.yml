@@ -46,7 +46,7 @@ x-casaos:
     - arm64
 
   main: mqtt
-  category: IoT
+  category: HackWae-Appstore
 
   port_map: "1883"
 
