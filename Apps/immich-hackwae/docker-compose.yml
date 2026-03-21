@@ -3,6 +3,7 @@ name: immich-hackwae
 services:
   immich-server:
     image: ghcr.io/immich-app/immich-server:release
+    container_name: immich-server
     restart: unless-stopped
 
     ports:
@@ -10,67 +11,134 @@ services:
         published: 2283
         protocol: tcp
 
+    volumes:
+      - type: bind
+        source: ${UPLOAD_LOCATION}
+        target: /data
+
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+
     environment:
       DB_HOSTNAME: database
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
-      DB_DATABASE_NAME: immich
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
       REDIS_HOSTNAME: redis
 
+    depends_on:
+      - database
+      - redis
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    container_name: immich-ml
+    restart: unless-stopped
+
     volumes:
-      - /mnt/data/photos:/usr/src/app/upload
+      - type: bind
+        source: ${MODEL_CACHE_LOCATION}
+        target: /cache
+
+    environment:
+      DB_HOSTNAME: database
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      REDIS_HOSTNAME: redis
 
     depends_on:
-      - redis
       - database
+      - redis
 
   redis:
-    image: redis:6.2
+    image: redis:6.2-alpine
+    container_name: immich-redis
     restart: unless-stopped
 
   database:
-    image: postgres:14
+    image: ghcr.io/immich-app/postgres:14
+    container_name: immich-db
     restart: unless-stopped
 
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: immich
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
 
     volumes:
-      - /DATA/AppData/immich-db:/var/lib/postgresql/data
+      - type: bind
+        source: ${DB_DATA_LOCATION}
+        target: /var/lib/postgresql/data
 
 x-casaos:
   store_app_id: immich-hackwae
+
   architectures:
     - amd64
     - arm64
 
   main: immich-server
   category: HackWae-Appstore
+
   port_map: "2283"
   scheme: http
   index: /
-  webui: http://[HOST]:[PORT]
-
-  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/immich.png
-  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/immich.png
 
   title:
     en_us: Immich HackWae
 
   description:
-    en_us: Self-hosted photo and video backup solution.
-
-  tips:
-    en_us: |-
-      📷 Photo Storage Path
-
-      All uploaded photos will be stored in:
-
-      /DATA/Media/Photos
-
-      You can modify this path in the docker-compose file.
+    en_us: Self-hosted photo & video backup server with customizable storage path.
 
   developer: HackWae
   version: "1.0.0"
+
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/immich.png
+  thumbnail: https://cdn.jsdelivr.net/gh/selfhst/icons/png/immich.png
+
+  tips:
+    before_install:
+      en_us: >
+        🌐 Web UI:
+        http://IP:2283
+
+        📁 Upload path bisa diubah:
+        UPLOAD_LOCATION
+
+        🧠 AI cache:
+        MODEL_CACHE_LOCATION
+
+        🗄 Database path:
+        DB_DATA_LOCATION
+
+        Login dibuat saat pertama buka web
+
+  envs:
+    - container: UPLOAD_LOCATION
+      description:
+        en_us: Folder penyimpanan foto/video (contoh /DATA/AppData/immich-hackwae/upload)
+
+    - container: DB_DATA_LOCATION
+      description:
+        en_us: Folder database (contoh /DATA/AppData/immich-hackwae/db)
+
+    - container: MODEL_CACHE_LOCATION
+      description:
+        en_us: Cache AI model (contoh /DATA/AppData/immich-hackwae/cache)
+
+    - container: DB_USERNAME
+      description:
+        en_us: Username database (default postgres)
+
+    - container: DB_PASSWORD
+      description:
+        en_us: Password database (default postgres)
+
+    - container: DB_DATABASE_NAME
+      description:
+        en_us: Nama database (default immich)
