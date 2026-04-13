@@ -1,0 +1,35 @@
+name: xnxx-api-hackwae
+
+services:
+  app:
+    image: hackwae/xnxx-api:latest
+    container_name: xnxx-api
+    restart: unless-stopped
+
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
+x-casaos:
+  store_app_id: xnxx-api-hackwae
+  architectures:
+    - amd64
+  main: app
+  category: HackWae-Appstore
+  port_map: "5000"
+  scheme: http
+  index: /
+  webui: http://[HOST]:[PORT]
+
+  title:
+    en_us: XNXX API HackWae
+
+  description:
+    en_us: Self-hosted API for n8n automation
+
+  developer: HackWae
