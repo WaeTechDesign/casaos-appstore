@@ -33,6 +33,10 @@
     {
       "id": "mqtt-studio-hackwae",
       "path": "Apps/mqtt-studio"
+    },
+    {
+    "name": "xnxx-api-hackwae",
+    "path": "Apps/xnxx-api"
     }
   ]
 }
