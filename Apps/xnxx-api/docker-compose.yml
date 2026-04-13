@@ -26,6 +26,9 @@ x-casaos:
   index: /
   webui: http://[HOST]:[PORT]
 
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/xnxx-api.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/xnxx-api.png
+
   title:
     en_us: XNXX API HackWae
 
