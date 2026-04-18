@@ -1,0 +1,42 @@
+name: ytdlp-hackwae
+
+services:
+  app:
+    image: ghcr.io/yt-dlp/yt-dlp:latest
+    container_name: ytdlp-hackwae
+    restart: unless-stopped
+
+    # biar container stay hidup
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+    volumes:
+      - type: bind
+        source: /DATA/downloads
+        target: /downloads
+
+    environment:
+      TZ: Asia/Makassar
+
+x-casaos:
+  store_app_id: ytdlp-hackwae
+  architectures:
+    - amd64
+    - arm64
+  main: app
+  category: HackWae-Appstore
+  port_map: ""
+  scheme: http
+  index: /
+  webui: ""
+  envs:
+    - container: TZ
+      description:
+        en_us: Container timezone
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
+  version: "1.0.0"
+  title:
+    en_us: yt-dlp HackWae
+  description:
+    en_us: Downloader engine for homelab (yt-dlp)
+  developer: HackWae
