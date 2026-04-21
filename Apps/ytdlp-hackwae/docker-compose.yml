@@ -2,7 +2,7 @@ name: ytdlp-hackwae
 
 services:
   app:
-    image: ghcr.io/yt-dlp/yt-dlp:latest
+    image: jauderho/yt-dlp
     container_name: ytdlp-hackwae
     restart: unless-stopped
 
