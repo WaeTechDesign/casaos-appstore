@@ -6,6 +6,14 @@ services:
     container_name: ytdlp-hackwae
     restart: unless-stopped
 
+    # 🔥 penting: pakai dns manual
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
+    # 🔥 optional tapi recommended (biar gak kena network isolasi docker)
+    network_mode: bridge
+
     # biar container stay hidup
     entrypoint: ["tail", "-f", "/dev/null"]
 
@@ -34,9 +42,9 @@ x-casaos:
         en_us: Container timezone
   icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
   thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
-  version: "1.0.0"
+  version: "1.0.1"
   title:
     en_us: yt-dlp HackWae
   description:
-    en_us: Downloader engine for homelab (yt-dlp)
+    en_us: Downloader engine for homelab (yt-dlp with DNS bypass)
   developer: HackWae
