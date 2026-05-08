@@ -1,50 +1,62 @@
-name: ytdlp-hackwae
+name: ytdlp-api
 
 services:
   app:
-    image: jauderho/yt-dlp
-    container_name: ytdlp-hackwae
+    image: hackwae/ytdlp-api:latest
+    container_name: ytdlp-api
     restart: unless-stopped
 
-    # 🔥 penting: pakai dns manual
+    ports:
+      - "6001:6001"
+
     dns:
       - 1.1.1.1
       - 8.8.8.8
 
-    # 🔥 optional tapi recommended (biar gak kena network isolasi docker)
-    network_mode: bridge
-
-    # biar container stay hidup
-    entrypoint: ["tail", "-f", "/dev/null"]
+    environment:
+      TZ: Asia/Makassar
 
     volumes:
       - type: bind
         source: /DATA/downloads
         target: /downloads
 
-    environment:
-      TZ: Asia/Makassar
-
 x-casaos:
-  store_app_id: ytdlp-hackwae
   architectures:
     - amd64
     - arm64
+
   main: app
+
   category: HackWae-Appstore
-  port_map: ""
+
+  port_map: "6001"
+
   scheme: http
+
   index: /
-  webui: ""
-  envs:
-    - container: TZ
-      description:
-        en_us: Container timezone
-  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
-  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
-  version: "1.0.1"
+
   title:
-    en_us: yt-dlp HackWae
+    en_us: yt-dlp API
+
   description:
-    en_us: Downloader engine for homelab (yt-dlp with DNS bypass)
+    en_us: Multi-platform downloader API with MP4, MP3, playlist and automation support.
+
+  tagline:
+    en_us: Downloader API for homelab automation
+
   developer: HackWae
+
+  author: HackWae
+
+  icon: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
+
+  thumbnail: https://raw.githubusercontent.com/WaeTechDesign/casaos-appstore/main/Apps/icon/ytdlp.png
+
+  tips:
+    before_install:
+      en_us: Make sure /DATA/downloads exists.
+
+  store_app_id: ytdlp-api
+
+  version: "1.0.0"

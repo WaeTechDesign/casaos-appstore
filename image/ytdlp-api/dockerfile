@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# install dependencies (FIX)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    curl \
+    unzip \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# install deno (FIX)
+RUN curl -fsSL https://deno.land/install.sh | sh && \
+    cp /root/.deno/bin/deno /usr/local/bin/deno && \
+    chmod +x /usr/local/bin/deno
+
+# python deps
+RUN pip install --no-cache-dir fastapi uvicorn yt-dlp
+
+COPY app.py .
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "6001"]
